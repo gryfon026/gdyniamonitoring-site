@@ -14,13 +14,8 @@ function App() {
       camera: "cam2",
       password: "podróż",
       videoId: "1nKLpC8Ebbc",
-      title: "Hotel Jakubowy - kamera 2",
-    },
-    {
-      camera: "cam1",
-      password: "podróż",
-      videoId: "HDkF2ztFyuI",
-      title: "Hotel Jakubowy - kamera 1",
+      videoId2: "HDkF2ztFyuI",
+      title: "Hotel Jakubowy",
     },
     {
       camera: "cam3",
@@ -89,6 +84,11 @@ function App() {
         <Camera>
           <Iframe videoId={video.videoId} title={video.title} />
         </Camera>
+        {video && video.videoId2 && (
+          <Camera>
+            <Iframe videoId={video.videoId2} title={video.title} />
+          </Camera>
+        )}
       </CamerasWrapper>
     </AppWrapper>
   );
@@ -100,7 +100,7 @@ const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
       <iframe
         width="400"
         height="270"
-        title="test"
+        title={title}
         src={`https://www.youtube-nocookie.com/embed/${videoId}`}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
