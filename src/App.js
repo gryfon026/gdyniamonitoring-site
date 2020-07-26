@@ -1,10 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "./assets/flag.png";
 import { Fonts } from "./fonts/fonts";
 import { GlobalStyle } from "./styles/global-style";
 
 function App() {
+  const [password, setPassword] = useState("");
+  const [isWrongPassword, setIsWrongPassword] = useState(false);
+  const [video, setVideo] = useState({});
+
+  const database = [
+    {
+      camera: "cam1",
+      password: "wyjscie",
+      videoId: "1nKLpC8Ebbc",
+      title: "Jakubowy na wyjscie",
+    },
+    {
+      camera: "cam1&2",
+      password: "wejście",
+      videoId: "HDkF2ztFyuI",
+      title: "Jakubowy wejscie",
+    },
+    {
+      camera: "cam3",
+      password: "wiadomości",
+      videoId: "Fm658KpJoaY",
+      title: "Wiadomości",
+    },
+  ];
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    checkPassword(password);
+    setPassword("");
+  };
+  const checkPassword = (value) => {
+    const found = database.find(
+      (element) => element.password === value.toLowerCase()
+    );
+    console.log("found ", found);
+    if (found) {
+      setVideo(found);
+      setIsWrongPassword(false);
+    } else {
+      setIsWrongPassword(true);
+    }
+  };
   return (
     <AppWrapper>
       <GlobalStyle />
@@ -17,8 +59,24 @@ function App() {
         </HeaderWrapper>
       </AppHeader>
       <CamerasWrapper>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Podaj hasło:
+            <input
+              type="text"
+              value={password}
+              onChange={(evt) => {
+                return setPassword(evt.target.value);
+              }}
+            />
+          </label>
+          <input type="submit" value="Wyślij" />
+        </form>
+        {isWrongPassword && (
+          <TextError>Błędne hasło. Spróbuj jeszcze raz.</TextError>
+        )}
         <Camera>
-          <Iframe videoId="1nKLpC8Ebbc" title="Jakubowy na wyjscie" />
+          <Iframe videoId={video.videoId} title={video.title} />
         </Camera>
       </CamerasWrapper>
     </AppWrapper>
@@ -26,19 +84,26 @@ function App() {
 }
 
 const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
+  console.log("videoId: ", videoId);
   return (
-    <iframe
-      width="560"
-      height="315"
-      title="test"
-      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-      frameBorder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    ></iframe>
+    videoId && (
+      <iframe
+        width="560"
+        height="315"
+        title="test"
+        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    )
   );
 };
 
+const TextError = styled.span`
+  color: red;
+  font-size: 16px;
+`;
 const Camera = styled.div`
   position: relative;
   display: block;
