@@ -11,22 +11,34 @@ function App() {
 
   const database = [
     {
-      camera: "cam1",
-      password: "wyjscie",
+      camera: "cam2",
+      password: "podróż",
       videoId: "1nKLpC8Ebbc",
-      title: "Jakubowy na wyjscie",
+      title: "Hotel Jakubowy - kamera 2",
     },
     {
-      camera: "cam1&2",
-      password: "wejście",
+      camera: "cam1",
+      password: "podróż",
       videoId: "HDkF2ztFyuI",
-      title: "Jakubowy wejscie",
+      title: "Hotel Jakubowy - kamera 1",
     },
     {
       camera: "cam3",
       password: "wiadomości",
       videoId: "Fm658KpJoaY",
-      title: "Wiadomości",
+      title: "Wiadomości - plac Kaszubski",
+    },
+    {
+      camera: "cam3",
+      password: "smacznego",
+      videoId: "WFvtUnyxNbw",
+      title: "Cafe Vogit",
+    },
+    {
+      camera: "cam3",
+      password: "zakupy",
+      videoId: "jIqoPAguhqk",
+      title: "C.H. Kwiatkowskiego",
     },
   ];
 
@@ -39,7 +51,6 @@ function App() {
     const found = database.find(
       (element) => element.password === value.toLowerCase()
     );
-    console.log("found ", found);
     if (found) {
       setVideo(found);
       setIsWrongPassword(false);
@@ -59,7 +70,7 @@ function App() {
         </HeaderWrapper>
       </AppHeader>
       <CamerasWrapper>
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label>
             Podaj hasło:
             <input
@@ -71,7 +82,7 @@ function App() {
             />
           </label>
           <input type="submit" value="Wyślij" />
-        </form>
+        </Form>
         {isWrongPassword && (
           <TextError>Błędne hasło. Spróbuj jeszcze raz.</TextError>
         )}
@@ -84,12 +95,11 @@ function App() {
 }
 
 const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
-  console.log("videoId: ", videoId);
   return (
     videoId && (
       <iframe
-        width="560"
-        height="315"
+        width="400"
+        height="270"
         title="test"
         src={`https://www.youtube-nocookie.com/embed/${videoId}`}
         frameBorder="0"
@@ -100,31 +110,74 @@ const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
   );
 };
 
+const Form = styled.form`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 600px;
+
+  label {
+    display: inner-block;
+    line-height: 38px;
+  }
+
+  input[type="text"] {
+    font-size: 14px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #222;
+    margin: 0 14px;
+  }
+
+  input[type="submit"] {
+    display: block;
+    text-transform: uppercase;
+    border-radius: 45px;
+    padding: 10px;
+    border: none;
+    background: #ffbf00d9;
+  }
+  input:focus {
+    outline: none;
+  }
+`;
 const TextError = styled.span`
+  text-align: center;
   color: red;
   font-size: 16px;
+  margin-top: 10px;
 `;
 const Camera = styled.div`
   position: relative;
   display: block;
   padding: 10px;
+  widht: 100%;
 `;
 
 const CamerasWrapper = styled.div`
   position: relative;
   display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;
 const HeaderWrapper = styled.div`
   text-align: center;
+  position: relative;
+  flex-grow: 4;
 `;
 const AppText = styled.p`
   font-size: 16px;
 `;
 const AppLogo = styled.img`
   position: relative;
-  width: 200px;
-  // height: 200px;
+  display: block;
+  max-width: 200px;
   background: #fff;
+  flex-grow: 2;
 `;
 const AppTitle = styled.h2`
   font-size: 26px;
@@ -132,7 +185,13 @@ const AppTitle = styled.h2`
 const AppHeader = styled.div`
   position: relative;
   display: flex;
+  flex-wrap: nowrap;
 `;
 
-const AppWrapper = styled.div``;
+const AppWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  justify-align: center;
+  flex-direction: column;
+`;
 export default App;
