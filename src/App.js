@@ -177,7 +177,7 @@ const AppLogo = styled.img`
   display: block;
   max-width: 200px;
   background: #fff;
-  flex-grow: 2;
+  object-fit: scale-down;
 `;
 const AppTitle = styled.h2`
   font-size: 26px;
