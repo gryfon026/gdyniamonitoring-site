@@ -94,7 +94,7 @@ function App() {
   );
 }
 
-const Iframe = ({ videoId = "1nKLpC8Ebbc", title = "Empty" } = {}) => {
+const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
   return (
     videoId && (
       <IframeStyled
