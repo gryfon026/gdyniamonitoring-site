@@ -94,18 +94,18 @@ function App() {
   );
 }
 
-const Iframe = ({ videoId = "", title = "Empty" } = {}) => {
+const Iframe = ({ videoId = "1nKLpC8Ebbc", title = "Empty" } = {}) => {
   return (
     videoId && (
-      <iframe
-        width="400"
-        height="270"
+      <IframeStyled
+        width="560"
+        height="315"
         title={title}
         src={`https://www.youtube-nocookie.com/embed/${videoId}`}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      ></iframe>
+      ></IframeStyled>
     )
   );
 };
@@ -149,17 +149,25 @@ const TextError = styled.span`
   font-size: 16px;
   margin-top: 10px;
 `;
+const IframeStyled = styled.iframe`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+`;
 const Camera = styled.div`
   position: relative;
-  display: block;
-  padding: 10px;
-  widht: 100%;
+  margin-top: 10px;
+  padding-bottom: calc(315 / 560 * 100%);
+  width: 100%;
 `;
 
 const CamerasWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 100%;
+  max-width: 900px;
+  margin: 10px;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
