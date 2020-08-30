@@ -5,14 +5,14 @@ import { Fonts } from "./fonts/fonts";
 import { GlobalStyle } from "./styles/global-style";
 
 function App() {
-  const [password, setPassword] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [video, setVideo] = useState({});
 
   const database = [
     {
       camera: "cam2",
-      password: "podróż",
+      password: "podróże",
       videoId: "1nKLpC8Ebbc",
       videoId2: "HDkF2ztFyuI",
       title: "Hotel Jakubowy",
@@ -25,13 +25,13 @@ function App() {
     },
     {
       camera: "cam3",
-      password: "smacznego",
+      password: "sorbet",
       videoId: "WFvtUnyxNbw",
       title: "Cafe Vogit",
     },
     {
       camera: "cam3",
-      password: "zakupy",
+      password: "sklepy",
       videoId: "jIqoPAguhqk",
       title: "C.H. Kwiatkowskiego",
     },
@@ -39,8 +39,8 @@ function App() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    checkPassword(password);
-    setPassword("");
+    checkPassword(inputPassword);
+    setInputPassword("");
   };
   const checkPassword = (value) => {
     const found = database.find(
@@ -70,9 +70,9 @@ function App() {
             Podaj hasło:
             <input
               type="text"
-              value={password}
+              value={inputPassword}
               onChange={(evt) => {
-                return setPassword(evt.target.value);
+                return setInputPassword(evt.target.value);
               }}
             />
           </label>
